@@ -13,8 +13,9 @@
 **开发板**:小熊派L431RCT6 256KB 64KB 80MHz
 
 该工程实现了一个简单的神经网络样例, 连接**串口二**后输出神经网络的计算结果:
+(输入为随机数)
 
-![Annotation 2020-01-17 214126](\help\Annotation 2020-01-17 214126.png)
+![Annotation 2020-01-17 214126](https://github.com/wangzilinn/200116_MCU_NN_learn/blob/master/help/Annotation%202020-01-17%20214126.png)
 
 该神经网络具有一个神经元, 单输入, 单输出.
 
