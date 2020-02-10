@@ -1,0 +1,46 @@
+Neural Network Tools for STM32 v1.2.0 (AI tools v5.0.0)
+Created date       : 2020-02-10 18:25:51
+
+Exec/report summary (generate dur=1.735s err=0)
+------------------------------------------------------------------------------------------------------------------------
+model file         : C:\Users\zilin\Desktop\regressor.h5
+type               : keras (keras_dump)
+c_name             : network_test
+compression        : None
+quantize           : None
+L2r error          : NOT EVALUATED
+workspace dir      : C:\Users\zilin\AppData\Local\Temp\mxAI_workspace23512012159002347637036503410239
+output dir         : C:\Users\zilin\.stm32cubemx\stm32ai_output
+
+model_name         : regressor
+model_hash         : ddd8804313e8814d83c4c96fb2bcfb4a
+input              : input_0 [1 items, 4 B, ai_float, FLOAT32, (1,)]
+input (total)      : 4 B
+output             : dense_1 [1 items, 4 B, ai_float, FLOAT32, (1,)]
+output (total)     : 4 B
+params #           : 2 items (8 B)
+macc               : 1
+weights (ro)       : 8 (8 B) 
+activations (rw)   : 0 (0 B) 
+ram (total)        : 8 (8 B) = 0 + 4 + 4
+
+------------------------------------------------------------------------------------------------------------------------
+id  layer (type)    output shape      param #     connected to             macc           rom                
+------------------------------------------------------------------------------------------------------------------------
+0   input_0 (Input) (1,)                                                                                     
+    dense_1 (Dense) (1,)              2           input_0                  1              8                  
+------------------------------------------------------------------------------------------------------------------------
+regressor p=2(8 Bytes) macc=1 rom=8 Bytes ram=0 B io_ram=8 B
+
+ 
+Complexity per-layer - macc=1 rom=8
+------------------------------------------------------------------------------------------------------------------------
+id      layer (type)    macc                                    rom                                    
+------------------------------------------------------------------------------------------------------------------------
+0       dense_1 (Dense) ||||||||||||||||||||||||||||||| 100.0%  ||||||||||||||||||||||||||||||| 100.0% 
+------------------------------------------------------------------------------------------------------------------------
+
+
+Evaluation report (summary)
+--------------------------------------------------
+NOT EVALUATED
