@@ -38,3 +38,19 @@ weights: [[0.36967745]] biases: [2.001801]
 
 
 
+## 工程差别记录
+
+1. `\Inc`新增了文件:
+   1. app_x-cube-ai.h
+   2. constants_ai.h
+   3. network_test.h
+   4. network_test_data.h
+   5. RTE_Components.h
+2. `\Src`文件增加了`app_x-cube-ai.c`, `network_test.c`,`network_test_data.c`
+3. `\Src`中的`stm32l4xx_hal_msp.c`初始化了CRC
+4. `\Inc\stm32l4xx_hal_conf.h` 取消注释了`#define HAL_CRC_MODULE_ENABLED`模块
+5. `\MDK-ARM\RTE\_3_regressor_test\RTE_Components.h`新增了这个文件, 不知道是干嘛的
+6. 新增了Middlewares文件夹及相关文件.
+
+
+
