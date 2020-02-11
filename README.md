@@ -6,12 +6,21 @@
 2. **2_regressor_test**:这是第一个跑通的神经网络工程,  里面固化了一个单输入单输出的线性回归神经网络
 3. 3_regressor_original:这是从CubeMX直接生成的工程, 里面配置了串口2和神经网络,用于和下面的对比
 4. 4_regressor_original_comparison:与上一个工程进行对比, 之缺少了神经网络的功能
-5. **5_migration_test**
+5. **5_migration_test** 该工程是把第3项中的神经网络部分移植到第4项中的一个测试
 6. h5:里面存放着Keras生成的.h5文件, 供CubeMX生成固化神经网络
 7. help:存放README依赖的图片等
 8. validate_nn_6:YouTube的ST频道有个教程, 里面的工程就是这个
 
-## regressor_test
+## 运行环境:
+
+1. Keil 5.27
+2. CubeMX 5.50
+3. 编译器:6.13.1(强烈建议使用6及以上版本的编译器,编译爽翻天)
+4. RCC: HSE, PLL×20, PLLCLK, HCLK==80MHz
+
+## 神经网络最小功能测试:
+
+源码见**2_regressor_test**文件夹.
 
 **开发板**:小熊派L431RCT6 256KB 64KB 80MHz
 
@@ -32,105 +41,7 @@ weights: [[0.36967745]] biases: [2.001801]
 
 
 
-## 备注数据:
-
-1. L431RB
-
-2. RCC: HSE, PLL倍频:×20, PLLCLK, HCLK==80MHz
-
-3. HAL_MspInit()只初始化RCC,其余外设的初始化都放在了各自的Msp函数中
-
-4. CRC初始化代码:
-
-   ```c
-   /* Private variables ---------------------------------------------------------*/
-   CRC_HandleTypeDef hcrc;
-   static void MX_CRC_Init(void);//声明
-   main(){...}
-   static void MX_CRC_Init(void)
-   {
-   
-     /* USER CODE BEGIN CRC_Init 0 */
-   
-     /* USER CODE END CRC_Init 0 */
-   
-     /* USER CODE BEGIN CRC_Init 1 */
-   
-     /* USER CODE END CRC_Init 1 */
-     hcrc.Instance = CRC;
-     hcrc.Init.DefaultPolynomialUse = DEFAULT_POLYNOMIAL_ENABLE;
-     hcrc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
-     hcrc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_NONE;
-     hcrc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_DISABLE;
-     hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
-     if (HAL_CRC_Init(&hcrc) != HAL_OK)
-     {
-       Error_Handler();
-     }
-     /* USER CODE BEGIN CRC_Init 2 */
-   
-     /* USER CODE END CRC_Init 2 */
-   
-   }
-   ```
-
-   
-
-1. CRC的MSP初始化代码:
-
-   ```c
-   /**
-   * @brief CRC MSP Initialization
-   * This function configures the hardware resources used in this example
-   * @param hcrc: CRC handle pointer
-   * @retval None
-   */
-   void HAL_CRC_MspInit(CRC_HandleTypeDef* hcrc)
-   {
-     if(hcrc->Instance==CRC)
-     {
-     /* USER CODE BEGIN CRC_MspInit 0 */
-   
-     /* USER CODE END CRC_MspInit 0 */
-       /* Peripheral clock enable */
-       __HAL_RCC_CRC_CLK_ENABLE();
-     /* USER CODE BEGIN CRC_MspInit 1 */
-   
-     /* USER CODE END CRC_MspInit 1 */
-     }
-   
-   }
-   
-   /**
-   * @brief CRC MSP De-Initialization
-   * This function freeze the hardware resources used in this example
-   * @param hcrc: CRC handle pointer
-   * @retval None
-   */
-   void HAL_CRC_MspDeInit(CRC_HandleTypeDef* hcrc)
-   {
-     if(hcrc->Instance==CRC)
-     {
-     /* USER CODE BEGIN CRC_MspDeInit 0 */
-   
-     /* USER CODE END CRC_MspDeInit 0 */
-       /* Peripheral clock disable */
-       __HAL_RCC_CRC_CLK_DISABLE();
-     /* USER CODE BEGIN CRC_MspDeInit 1 */
-   
-     /* USER CODE END CRC_MspDeInit 1 */
-     }
-   
-   }
-   ```
-
-   HAL_CRC_MspInit()函数的调用链:
-
-   main()==>MX_CRC_Init()==>HAL_CRC_Init()==>HAL_CRC_MspInit()[在msp.c文件中编写]
-
-
-
-## 工程差别记录
+## 有神经网络的工程修改了哪些文件?
 
 1. `\Inc`新增了文件:
    1. app_x-cube-ai.h
@@ -144,15 +55,196 @@ weights: [[0.36967745]] biases: [2.001801]
 5. `\Inc\stm32l4xx_hal_conf.h` 取消注释了`#define HAL_CRC_MODULE_ENABLED`模块
 6. 新增了Middlewares文件夹及相关文件
 
-## 迁移过程
+## 将神经网络迁移至无神经网络的工程:
 
-1. 移动\Inc
-2. 添加那CRC.c
-3. 粘贴了Middlewares, keil增加middlewares的include,
-4.  将.lib文件加入group
-5. main()中
-   1. 加入#include "app_x-cube-ai.h"头文件
-   2. 加入MX_X_CUBE_AI_Init();初始化
-   3. while(1)中执行MX_X_CUBE_AI_Process()函数
-6. 
+>  [神经网络]工程为CubeMX生成的带神经网络的工程
+
+>  [无神经网络]工程为CubeMX生成的不带神经网络的工程
+
+步骤:
+
+1. 将[神经网络]工程的`\Inc`文件夹下的:
+
+   1. app_x-cube-ai.h
+   2. constants_ai.h
+   3. [network_name].h
+   4. [network_name]_data.h
+
+   文件复制到[无神经网络]工程相同路径
+
+2. 将[神经网络]工程的`\Src`文件夹下的:
+
+   1. app_x-cube-ai.c
+   2. [network_name].c
+   3. [network_name]_data.c
+
+   文件复制到[无神经网络]工程相同路径
+
+3. 新建文件夹`\Middlewares\AI`(用于放置AI接口), 将[神经网络]工程的`Middlewares\ST\AI`路径下的
+
+   1. `Inc`文件夹
+   2. `Lib`文件夹
+
+   复制到[无神经网络]工程的`\Middlewares\AI`路径下
+
+4. 检查[神经网络]工程下的`\Drivers\STM32L4xx_HAL_Driver\Src`文件夹及`\Drivers\STM32L4xx_HAL_Driver\Src`文件夹, 这两个文件夹应包含启用CRC必须的文件:
+
+   1. stm32l4xx_hal_crc.h
+
+   2. stm32l4xx_hal_crc_ex.h
+
+   3. stm32l4xx_hal_crc.c
+
+   4. stm32l4xx_hal_crc_ex.c
+
+----
+
+以上文件移动完成, 接下来是Keil内部的工程的配置:
+
+----
+
+5. Add Existing Files to Group `Application/User`, 添加`\Src`下的:
+
+   1. app_x-cube-ai.c
+   2. [network_name].c
+   3. [network_name]_data.c
+
+   **注意**:这里不要图省事全选添加, 否则会把不应该加进去的system_stm32l4xx.c文件也加到这个Group中(这个文件是在Drivers/CMSIS这个Group中的
+
+6. Add Existing Files to Group `Drivers/STM32xxx_HAL_Driver`, 添加`\Drivers\STM32L4xx_HAL_Driver\Src`文件夹下的
+
+   1. stm32l4xx_hal_crc.c
+   2. stm32l4xx_hal_crc_ex.c
+
+   文件(在步骤4检查过)
+
+7. Add Group, 并命名为`lib`(这个Group用于放置CubeMX编译好的神经网络静态链接库), Add Existing Files to Group `lib`, 添加`\Middlewares\AI\Lib`文件夹下的NetworkRuntime500_CM4_Keil.lib
+
+8. Options for Target '[无神经网络]工程',->C/C++选项卡,->Include Paths->添加`../Middlewares/AI/Inc`(在第3步新建的)
+
+----
+
+以上Keil配置完成, 下面修改.c文件
+
+----
+
+9. 在stm32l4xx_hal_conf.h文件中取消`#define HAL_CRC_MODULE_ENABLED  `模块的注释
+
+10. 在stm32xxxx_hal_msp.c文件中新增CRC的MSP初始化代码:
+
+    ```c
+    /**
+    * @brief CRC MSP Initialization
+    * This function configures the hardware resources used in this example
+    * @param hcrc: CRC handle pointer
+    * @retval None
+    */
+    void HAL_CRC_MspInit(CRC_HandleTypeDef* hcrc)
+    {
+      if(hcrc->Instance==CRC)
+      {
+      /* USER CODE BEGIN CRC_MspInit 0 */
+    
+      /* USER CODE END CRC_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_CRC_CLK_ENABLE();
+      /* USER CODE BEGIN CRC_MspInit 1 */
+    
+      /* USER CODE END CRC_MspInit 1 */
+      }
+    
+    }
+    
+    /**
+    * @brief CRC MSP De-Initialization
+    * This function freeze the hardware resources used in this example
+    * @param hcrc: CRC handle pointer
+    * @retval None
+    */
+    void HAL_CRC_MspDeInit(CRC_HandleTypeDef* hcrc)
+    {
+      if(hcrc->Instance==CRC)
+      {
+      /* USER CODE BEGIN CRC_MspDeInit 0 */
+    
+      /* USER CODE END CRC_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_CRC_CLK_DISABLE();
+      /* USER CODE BEGIN CRC_MspDeInit 1 */
+    
+      /* USER CODE END CRC_MspDeInit 1 */
+      }
+    
+    }
+    ```
+
+11. 在main.c加入#include "app_x-cube-ai.h"头文件
+
+12. 在main.c中新增CRC的初始化代码:
+
+    ```c
+    /* Private variables ---------------------------------------------------------*/
+    CRC_HandleTypeDef hcrc;
+    static void MX_CRC_Init(void);//记得声明
+    main(){...}
+    static void MX_CRC_Init(void)
+    {
+    
+      /* USER CODE BEGIN CRC_Init 0 */
+    
+      /* USER CODE END CRC_Init 0 */
+    
+      /* USER CODE BEGIN CRC_Init 1 */
+    
+      /* USER CODE END CRC_Init 1 */
+      hcrc.Instance = CRC;
+      hcrc.Init.DefaultPolynomialUse = DEFAULT_POLYNOMIAL_ENABLE;
+      hcrc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
+      hcrc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_NONE;
+      hcrc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_DISABLE;
+      hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
+      if (HAL_CRC_Init(&hcrc) != HAL_OK)
+      {
+        Error_Handler();
+      }
+      /* USER CODE BEGIN CRC_Init 2 */
+    
+      /* USER CODE END CRC_Init 2 */
+    
+    }
+    ```
+
+13. 在main中初始化CRC, 初始化神经网络, 在while(1)中执行神经网络:
+
+    ```c
+    int main(void)
+    {
+      HAL_Init();
+      SystemClock_Config();
+      MX_CRC_Init();//初始化CRC
+      MX_X_CUBE_AI_Init();//初始化神经网络
+      while (1)
+      {
+        MX_X_CUBE_AI_Process();//开始执行神经网络
+      }
+    }
+    ```
+
+14. 迁移完成.
+
+## 将一个新的神经网络放到原来的工程中:
+
+只用执行上面的第1, 2步, 并解决冲突即可.
+
+## 备忘录
+
+1. HAL_CRC_MspInit()函数的调用链:
+
+   main()==>MX_CRC_Init()==>HAL_CRC_Init()==>HAL_CRC_MspInit()[位于stm32xxx_HAL_msp.c]
+
+2. HAL_MspInit()只初始化RCC,其余外设的初始化都放在了各自的Msp函数中
+
+
+
+
 
