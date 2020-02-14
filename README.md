@@ -28,7 +28,7 @@
 该工程实现了一个简单的神经网络样例, 连接**串口二**后输出神经网络的计算结果:
 (输入为随机数)
 
-![Annotation 2020-01-17 214126](https://github.com/wangzilinn/200116_MCU_NN_learn/blob/master/help/Annotation%202020-01-17%20214126.png)
+![Annotation 2020-01-17 214126](https://github.com/wangzilinn/200116_MCU_NN_learn/blob/master/img/Annotation%202020-01-17%20214126.png)
 
 该神经网络具有一个神经元, 单输入, 单输出.
 
@@ -52,7 +52,7 @@ weights: [[0.36967745]] biases: [2.001801]
 
 输入图片:
 
-![6]()
+![6](https://github.com/wangzilinn/200116_MCU_NN_learn/blob/master/img/mnist_6.png)
 
 该神经网络具有三层结构:
 
