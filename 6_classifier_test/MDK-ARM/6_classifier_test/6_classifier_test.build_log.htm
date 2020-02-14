@@ -1,0 +1,77 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.29.0.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Zilin Wang, none, LIC=KRMW3-ABGP3-PCKJ8-3YMRQ-9TM5B-D43E9
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.29.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.13.1
+Assembler:       Armasm.exe V6.13.1
+Linker/Locator:  ArmLink.exe V6.13.1
+Library Manager: ArmAr.exe V6.13.1
+Hex Converter:   FromElf.exe V6.13.1
+CPU DLL:         SARMCM3.DLL V5.29.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Dialog DLL:      TCM.DLL V1.36.5.0
+ 
+<h2>Project:</h2>
+C:\Case\case-STM32\200116_MCU_NN_learn\6_classifier_test\MDK-ARM\6_classifier_test.uvprojx
+Project File Date:  02/14/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.13.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target '6_classifier_test'
+../Src/app_x-cube-ai.c(199): warning: passing 'char [5]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+        HAL_UART_Transmit(&huart2,"yes\n",5,0xffff); 
+                                  ^~~~~~~
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(1609): note: passing argument to parameter 'pData' here
+HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                                                                        ^
+../Src/app_x-cube-ai.c(201): warning: passing 'char [6]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+            HAL_UART_Transmit(&huart2,"here\n",6,0xffff); 
+                                      ^~~~~~~~
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(1609): note: passing argument to parameter 'pData' here
+HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                                                                        ^
+../Src/app_x-cube-ai.c(204): warning: implicitly declaring library function 'sprintf' with type 'int (char *, const char *, ...)' [-Wimplicit-function-declaration]
+                sprintf(UART_BUF, "%5f ", output);                      
+                ^
+../Src/app_x-cube-ai.c(204): note: include the header <stdio.h> or explicitly provide a declaration for 'sprintf'
+3 warnings generated.
+compiling app_x-cube-ai.c...
+linking...
+Program Size: Code=14520 RO-data=105564 RW-data=1236 ZI-data=4668  
+FromELF: creating hex file...
+"6_classifier_test\6_classifier_test.axf" - 0 Error(s), 3 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.6.0.pack
+                ARM.CMSIS.5.6.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.3.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32L4xx_DFP.2.2.0.pack
+                Keil.STM32L4xx_DFP.2.2.0
+                STMicroelectronics STM32L4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_6_classifier_test
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include
+  C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.3.0
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
