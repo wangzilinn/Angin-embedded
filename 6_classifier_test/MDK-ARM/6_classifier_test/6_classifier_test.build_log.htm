@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 C:\Case\case-STM32\200116_MCU_NN_learn\6_classifier_test\MDK-ARM\6_classifier_test.uvprojx
-Project File Date:  02/14/2020
+Project File Date:  02/17/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
@@ -33,20 +33,20 @@ Build target '6_classifier_test'
 ../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(1609): note: passing argument to parameter 'pData' here
 HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
                                                                         ^
-../Src/app_x-cube-ai.c(201): warning: passing 'char [6]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
-            HAL_UART_Transmit(&huart2,"here\n",6,0xffff); 
-                                      ^~~~~~~~
+../Src/app_x-cube-ai.c(206): warning: passing 'char [6]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+        HAL_UART_Transmit(&huart2,"here\n",6,0xffff); 
+                                  ^~~~~~~~
 ../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(1609): note: passing argument to parameter 'pData' here
 HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
                                                                         ^
-../Src/app_x-cube-ai.c(204): warning: implicitly declaring library function 'sprintf' with type 'int (char *, const char *, ...)' [-Wimplicit-function-declaration]
-                sprintf(UART_BUF, "%5f ", output);                      
-                ^
-../Src/app_x-cube-ai.c(204): note: include the header <stdio.h> or explicitly provide a declaration for 'sprintf'
+../Src/app_x-cube-ai.c(209): warning: implicitly declaring library function 'sprintf' with type 'int (char *, const char *, ...)' [-Wimplicit-function-declaration]
+            sprintf(UART_BUF, "%5f ", output);                  
+            ^
+../Src/app_x-cube-ai.c(209): note: include the header <stdio.h> or explicitly provide a declaration for 'sprintf'
 3 warnings generated.
 compiling app_x-cube-ai.c...
 linking...
-Program Size: Code=14520 RO-data=105564 RW-data=1236 ZI-data=4668  
+Program Size: Code=14524 RO-data=105564 RW-data=1236 ZI-data=4668  
 FromELF: creating hex file...
 "6_classifier_test\6_classifier_test.axf" - 0 Error(s), 3 Warning(s).
 
@@ -71,7 +71,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
