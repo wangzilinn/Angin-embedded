@@ -57,7 +57,7 @@ weights: [[0.36967745]] biases: [2.001801]
 
 输入图片:
 
-![6](https://github.com/wangzilinn/200116_MCU_NN_learn/blob/master/img/mnist_6.png)
+![6](./img/mnist_6.png)
 
 该神经网络具有三层结构:
 
